@@ -4,25 +4,37 @@ def Lexer(file):
     tree = {}
 
     tree["imports"] = {}
+    tree["imports"]["local"] = {}
 
     for i in lines:
         import_count = 0
+        local_count = 0
     
-    if i.startswith("import") and i[6] == " ":
-        names = ""
+        if i.startswith("import") and i[6] == " ":
+            names = ""
 
-        for e in range(7, len(i)):
+            for e in range(7, len(i)):
 
-            if i[e] == " ":
-                continue
+                if i[e] == "," or e == len(i)-1:
+                    if names.startswith("local."):
+                        tree["imports"]["local"][str(local_count)] = names
+                        names = ""
+                        local_count += 1
+                        continue
 
-            if not i[e] == ",":
-                names += i[e]
+                    
+                    tree["imports"][str(import_count)] = names
+                    names = ""
+                    import_count += 1
+                    continue
 
-            else:
-                tree["imports"][str(import_count)] = names
-                names = ""
-                import_count += 1
+                if i[e] == " ":
+                    continue
+
+                if not i[e] == ",":
+                    names += i[e]
+
+    return tree
         
 
 class MiniPy:
