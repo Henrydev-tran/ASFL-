@@ -141,3 +141,12 @@ mpy-build/
 mpy-builds/
 .mpy-build/
 .mpy-builds/
+mpy-cache/
+.mpy-cache/
+
+# MiniPy File Types
+*.mpy
+*.pym
+*.mpt
+*.mpm
+*.gmp
