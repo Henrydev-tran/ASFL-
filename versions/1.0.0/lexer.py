@@ -14,8 +14,11 @@ def Divide_Lines(filename):
                 read_lines.append(cur_div)
                 cur_div = ""
 
+        if cur_div.endswith("{") or cur_div.endswith("("):
+            pass
+
+
             
 
-class Lexer:
-    def __init__(self):
-        pass
+def Lexer(file):
+    lines = Divide_Lines(file)

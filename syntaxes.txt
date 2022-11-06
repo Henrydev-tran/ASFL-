@@ -1,0 +1,152 @@
+ASFL+ syntaxes:
+
+importing files:
+
+import (filename.asf, file2.asf, file3.asf)
+:: this will get all variables, functions and classes inside the files
+
+notes:
+to declare the end of a line, always use ";", or else you migh find an error
+this allows for code like this "var:int foo = 10; var:float bar = 13.63f"
+
+null: NULL
+
+comment: :: This is a comment
+
+multiline comment: 
+:/
+this is a
+multiline comment!
+/:
+
+
+
+variable types:
+interger: var:int <name> = value;
+
+float: var:float <name> = valuef;
+:: all floating variables must have "f" after the number to be a floating point
+
+double: var:double <name> = value;
+
+boolean: var:bool <name> = true/false;
+
+string: var:string <name> = "value";  or  var:string <name> = 'value';
+
+arrays: var:int[length(optional)] <name> = [value, value, value];
+
+objects: var:obj <name> = {
+	foo: 12,
+	bar: 36
+};
+
+any type variable: var:any <name> = 10f;
+
+varible with no value: var:<type> <name>;
+
+multiple variables: var:int <name>,<name2>,<name3> = value;
+
+local variables: local:<type> <name> = value;
+:: local variables will only be usable inside the brackets that it is created in
+:: example:
+
+def:func add(var:int v1, var:int v2) var:int {
+
+	local:int result = v1 + v2;
+	:: local variable will not be usable outside the function scope
+	
+	return result;
+
+}
+
+modifying variables: <name> = value;
+
+
+
+definitions:
+
+functions:
+
+def:func <name>(var:int foo, var:float bar) <return type> {
+	
+	:/
+	if not provided the return type, it will automatically be var:any
+	if provided, the returned value should be the return type
+	/:
+
+	return value
+}
+
+:: you can make a function with no definition
+def:func name(params) <return type>;
+:: then you can redeclear it using
+name = (params) <return type> {
+}
+
+classes:
+
+def:class name{
+
+	public:
+		class:int bar;
+		class:bool v3 = false;
+		:: public variables can be accessed outside of the class scope
+		
+		def:func return_type(var:float input) var:float;
+		
+	private:
+		class:string privatevar = "Hello, World!";
+		:: private variables can be accessed only inside the class scope
+	shared:
+		class:double key = 0.837;
+		:: shared variables cannot be access outside of the class scope but it can be accessed by other classes that inherit this class
+
+	:: initialize a constructor with def:constructor
+	def:constructor(var:int foo){
+		
+		class:int foo = foo;
+		:: class:<type> variables will be the object's variable
+		:: any variables declared inside the constructor will be a public variable
+		
+		bar = 10;
+	
+	}
+	:: constructors are not required
+	
+}
+
+:: classes works like c++, you can make a class like this
+def:class name{
+	def:constructor(var:int);
+	public:
+		def:func returnlist(var:int[]) var:int[];
+}
+:: then in another file
+import (filename.asf)
+
+name:constructor(var:int foo){
+	:: ...
+}
+returnlist = (var:int[] list) var:int[]{
+	:: ...
+}
+
+:: you can inherit a class or multiple classes using
+class v4 : inherit v5, v6, v7{
+}
+
+:/
+All public and shared functions, variables will be copied into the class
+if the class declare a varible with the same name as a variable inside the inherited classes, the declared varible will replace the inherited variable
+constructors will lso be copied if not defined in class
+/:
+
+:: you can access an object's function or variable using, (you can only access public variables)
+var:int <name> = object:variable;
+def:func make_array = object:function;
+object:function();
+
+:: you can make an object using
+var:<class name> <name> = new <class name>(<constructor params>)
+:: construtor params are always required if the class has one
+

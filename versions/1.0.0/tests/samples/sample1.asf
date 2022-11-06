@@ -1,0 +1,2 @@
+var:int m0001 = 0;
+var:bool m0002 = false; var:float m0003 = 0f; var:string m0004 = "Hello, World!";

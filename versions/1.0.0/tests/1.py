@@ -19,7 +19,7 @@ def Divide_Lines(filename):
     return read_lines
 
 def Run_Test():
-    sample1_test = Divide_Lines("./versions/1.0.0/tests/samples/sample1.mpy")
+    sample1_test = Divide_Lines("./versions/1.0.0/tests/samples/sample1.asf")
     if sample1_test == ['var:int m0001 = 0', 'var:bool m0002 = false', ' var:float m0003 = 0f', ' var:string m0004 = "Hello, World!"']:
         print("Sample 1 test success")
     else:

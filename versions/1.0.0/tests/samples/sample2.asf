@@ -1,0 +1,6 @@
+define:func m0005(var:any m0006, var:int m0007){
+    if(type(m006) == var:int){
+        var:int m0008 = m0006 + m0007; 
+        return m0008;
+    }
+}
